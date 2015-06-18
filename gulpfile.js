@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var exec = require('child_process').exec;
 var bowerDir = './bower_components/';
-var publicDir = './dist/public/';
+var publicDir = './dist/';
 var jsDir = 'js/';
 
 gulp.task('build', function() {
