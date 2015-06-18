@@ -2,9 +2,10 @@
 
 Gets the top original posts for a given Tumblr tumblelog
 
-##Builing
+##Building
 
 ```
 $ npm install
+$ bower install
 $ gulp
 ```
