@@ -1,5 +1,11 @@
 <div>
   <h1>Tumblr Top</h1>
-  <p>Nothing here {{'yet! ' + view.model}}</p>
-  <input type="text" ng-model="view.model" />
+  <h2>{{view.blogName}}</h2>
+  <input type="text" ng-model="view.blogName" />.tumblr.com
+  <a href="javascript:void(0);" ng-click="view.getPosts()">Get top posts</a>
+  <ul>
+    <li ng-repeat="post in view.posts">
+        <img ng-src="{{post.photos[0].alt_sizes[2].url}}" />
+    </li>
+  </ul>
 </div>
