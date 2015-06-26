@@ -1,7 +1,7 @@
 (->
   tumblrService = ($http) ->
 
-    API_KEY = 'del3t3MeeeeEEE3'
+    API_KEY = '<consumer-key>'
 
     getPosts: (blogName) ->
         console.log "Getting top posts for #{blogName}.tumblr.com"
