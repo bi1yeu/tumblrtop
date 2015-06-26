@@ -1,2 +1,0 @@
-#!/bin/sh
-sed -i '' "s/API_KEY = '<consumer-key>'/API_KEY = '$TUMBLR_CONSUMER_KEY'/g" */**/tumblrService.coffee
