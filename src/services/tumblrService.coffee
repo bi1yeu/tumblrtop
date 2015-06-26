@@ -1,6 +1,8 @@
 (->
   tumblrService = ($http) ->
 
+    # The following line is populated with a real key via
+    # the gulp task 'set-key'
     API_KEY = '<consumer-key>'
 
     getPosts: (blogName) ->
