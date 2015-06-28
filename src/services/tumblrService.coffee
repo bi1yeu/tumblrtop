@@ -1,21 +1,12 @@
 (->
-  tumblrService = ($http, $sce) ->
+  tumblrService = ($http) ->
 
     # The following line is populated with a real key via
     # the gulp task 'set-key'
-    API_KEY = '<consumer-key>'
+    API_KEY = ''
+    BATCH_SIZE = 5
 
-    _filterUnoriginal = (response) ->
-      posts = response.data.response.posts
-      filteredPosts = []
-      for post in posts
-        if not post.reblogged_from_id?
-          if post.body?
-            post.body = $sce.trustAsHtml post.body
-          filteredPosts.push post
-      filteredPosts
-
-    getPosts: (blogName) ->
+    getPosts: (blogName, batchNum) ->
         console.log "Getting top posts for #{blogName}.tumblr.com"
         url = "http://api.tumblr.com/v2/blog/#{blogName}.tumblr.com/posts/"
         data =
@@ -23,9 +14,17 @@
             api_key: API_KEY
             notes_info: true
             reblog_info: true
+            notes_info: true
+            offset: batchNum * BATCH_SIZE
+            limit: BATCH_SIZE
             callback: 'JSON_CALLBACK'
-        $http.jsonp url, data
-        .then _filterUnoriginal
+        promise = $http.jsonp url, data
+        .then (response) ->
+          response.data.response.posts
+        , (error) ->
+          alert 'Error getting posts!'
+          console.log error
+          promise.$promise.reject(error)
 
   angular
     .module('tumblrTopApp')
