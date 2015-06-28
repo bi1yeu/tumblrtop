@@ -3,7 +3,7 @@
 
     # The following line is populated with a real key via
     # the gulp task 'set-key'
-    API_KEY = 'd3leteM3'
+    API_KEY = '<consumer-key>'
     BATCH_SIZE = 5
 
     getPosts: (blogName, batchNum) ->
