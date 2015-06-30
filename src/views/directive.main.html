@@ -1,11 +1,15 @@
 <div>
 	<h1>Tumblr Top</h1>
-	<h2>{{view.blogName}}</h2>
+	<h2><a target="_blank" ng-href="{{view.blog.url}}">{{view.blog.name}}</a></h2>
+	<h3>{{view.blog.title}}</h3>
+
 	<input type="text" ng-model="view.blogName" />.tumblr.com
-	<a href="javascript:void(0);" ng-click="view.getPosts()">Get top posts</a>
+	<a href="javascript:void(0);" ng-click="view.startAnalysis()">Analyze</a> <a href="javascript:void(0);" ng-click="view.debugStop = true">Stop</a>
 	<br />
+	Total Post Count: {{view.posts.length}}/{{view.blog.posts}} <br />
+	Original Post Count: {{view.countOriginalPosts()}}/{{view.blog.posts}} <br />
 	<ul>
-		<li ng-repeat="post in view.posts | filter:view.isOriginalPost">
+		<li ng-repeat="post in view.posts | filter:view.isOriginalPost | orderBy:'-note_count' | limitTo:view.displayPostLimit">
 			<img ng-if="post.photos[0].alt_sizes[2].url"
 				ng-src="{{post.photos[0].alt_sizes[2].url}}" />
 			<div ng-if="post.body"
@@ -13,4 +17,5 @@
 			<p>{{post.note_count}}</p>
 		</li>
 	</ul>
+	<a href="javascript:void(0);" ng-click="view.displayPostLimit = view.displayPostLimit + 1">Show more</a>
 </div>
