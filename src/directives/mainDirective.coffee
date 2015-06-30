@@ -8,6 +8,7 @@
           controllerAs: 'view'
           controller: (tumblrService, $sce) ->
             view = @
+            view.POST_LIMIT_INCR = 3
 
             _init = ->
               view.posts = []

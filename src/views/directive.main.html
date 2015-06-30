@@ -4,7 +4,8 @@
 	<h3>{{view.blog.title}}</h3>
 
 	<input type="text" ng-model="view.blogName" />.tumblr.com
-	<a href="javascript:void(0);" ng-click="view.startAnalysis()">Analyze</a> <a href="javascript:void(0);" ng-click="view.debugStop = true">Stop</a>
+	<a href="javascript:void(0);" ng-click="view.startAnalysis()">Analyze</a>
+	<a href="javascript:void(0);" ng-click="view.debugStop = true">Stop</a>
 	<br />
 	Total Post Count: {{view.posts.length}}/{{view.blog.posts}} <br />
 	Original Post Count: {{view.countOriginalPosts()}}/{{view.blog.posts}} <br />
@@ -17,5 +18,5 @@
 			<p>{{post.note_count}}</p>
 		</li>
 	</ul>
-	<a href="javascript:void(0);" ng-click="view.displayPostLimit = view.displayPostLimit + 1">Show more</a>
+	<a href="javascript:void(0);" ng-click="view.displayPostLimit = view.displayPostLimit + view.POST_LIMIT_INCR">Show more</a>
 </div>

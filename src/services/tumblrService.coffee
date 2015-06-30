@@ -4,7 +4,7 @@
     # The following line is populated with a real key via
     # the gulp task 'set-key'
     API_KEY = '<consumer-key>'
-    BATCH_SIZE = 20
+    BATCH_SIZE = 5
     API_BASE_URL = 'http://api.tumblr.com/v2/'
 
     getBlog: (blogName) ->
