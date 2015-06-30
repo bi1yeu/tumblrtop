@@ -5,8 +5,9 @@ var gulp = require('gulp'),
     coffee = require('gulp-coffee'),
     concat = require('gulp-concat'),
     ngAnnotate = require('gulp-ng-annotate'),
-    templateCache = require('gulp-angular-templatecache')
-    shell = require('gulp-shell');
+    templateCache = require('gulp-angular-templatecache'),
+    shell = require('gulp-shell'),
+    karma = require('karma').server;
 
 var PORT_NUM = 3000;
 
@@ -14,6 +15,7 @@ var bowerDir = './bower_components/',
     srcDir = './src/',
     distDir = './dist/',
     coffeeFiles = [srcDir + '**/*.coffee', srcDir + '*.coffee'],
+    testFiles = ['spec/*.coffee'],
     htmlFiles = srcDir + 'views/**/*.html',
     jsDir = distDir + 'js/';
 
@@ -57,6 +59,15 @@ gulp.task('build', ['clean', 'set-key', 'coffee', 'html'], function() {
 
 gulp.task('watch', function () {
   watcher = gulp.watch([coffeeFiles, htmlFiles], ['coffee', 'html']);
+});
+
+gulp.task('test', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, function() {
+    done();
+  });
 });
 
 gulp.task('serve', function() {
