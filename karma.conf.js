@@ -15,10 +15,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'spec/**/*Spec.coffee',
-      'spec/*Spec.coffee',
       'dist/js/angular/angular.min.js',
-      'dist/js/app.js'
+      'bower_components/angular-mocks/angular-mocks.js',
+      'src/views/*.html',
+      'dist/js/app.js',
+      'spec/*Spec.coffee'
     ],
 
 
@@ -30,7 +31,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './src/views/**/*.html': ['ng-html2js'],
+      './src/views/*.html': ['ng-html2js'],
       './**/*.coffee': ['coffee']
     },
 
@@ -70,15 +71,7 @@ module.exports = function(config) {
 
     ngHtml2JsPreprocessor: {
       // strip this from the file path
-      // stripPrefix: 'public/',
-      // stripSufix: '.ext',
-      // // prepend this to the
-      // prependPrefix: 'served/',
-
-      // or define a custom transform function
-      cacheIdFromPath: function(filepath) {
-        return cacheId;
-      },
+      stripPrefix: 'src/views/',
 
       // setting this option will create only a single module that contains templates
       // from all the files, so you can load them all with module('foo')

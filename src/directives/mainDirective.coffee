@@ -34,7 +34,6 @@
               _getPosts()
 
             _processPosts = (posts) ->
-              originalPosts = []
               for post in posts
                 post.body = $sce.trustAsHtml post.body
                 view.posts.push post
