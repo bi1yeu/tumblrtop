@@ -48,7 +48,7 @@ describe 'Main Directive', () ->
     $scope = $rootScope.$new()
     $compile(element)($scope)
     $scope.$digest()
-    expect(element.html()).toContain '<h1>Tumblr Top</h1>'
+    expect(element.html()).toContain 'Tumblr Top'
 
   afterEach ->
     $scope.$destroy()

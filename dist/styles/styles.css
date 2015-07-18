@@ -1,0 +1,25 @@
+body {
+  width: 100%;
+}
+
+#logo {
+  width: 50%;
+  margin: auto;
+  font-size: 32px;
+  text-align: center;
+  font-family: 'Vidaloka', serif;
+}
+
+#logo h1 a {
+  text-decoration: none;
+  color: #29354B; /* tumblr blue */
+}
+
+#logo h1 a:hover {
+  color: #455675;
+}
+
+#content-container {
+  width:90%;
+  margin: auto;
+}

@@ -1,22 +1,35 @@
-<div>
-	<h1>Tumblr Top</h1>
-	<h2><a target="_blank" ng-href="{{view.blog.url}}">{{view.blog.name}}</a></h2>
-	<h3>{{view.blog.title}}</h3>
+<div id="tumblr-top">
+  <div id="logo">
+      <h1><a href="/">Tumblr Top</a></h1>
+  </div>
+  <div id="content-container">
+    <div id="controls">
+      <h2><a target="_blank" ng-href="{{view.blog.url}}">{{view.blog.name}}</a></h2>
+      <h3>{{view.blog.title}}</h3>
 
-	<input type="text" ng-model="view.blogName" />.tumblr.com
-	<a href="javascript:void(0);" ng-click="view.startAnalysis()">Analyze</a>
-	<a href="javascript:void(0);" ng-click="view.debugStop = true">Stop</a>
-	<br />
-	Total Post Count: {{view.posts.length}}/{{view.blog.posts}} <br />
-	Original Post Count: {{view.countOriginalPosts()}}/{{view.blog.posts}} <br />
-	<ul>
-		<li ng-repeat="post in view.posts | filter:view.isOriginalPost | orderBy:'-note_count' | limitTo:view.displayPostLimit">
-			<img ng-if="post.photos[0].alt_sizes[2].url"
-				ng-src="{{post.photos[0].alt_sizes[2].url}}" />
-			<div ng-if="post.body"
-				ng-bind-html="post.body"></div>
-			<p>{{post.note_count}}</p>
-		</li>
-	</ul>
-	<a href="javascript:void(0);" ng-click="view.displayPostLimit = view.displayPostLimit + view.POST_LIMIT_INCR">Show more</a>
+      <input type="text" ng-model="view.blogName" />.tumblr.com
+      <a href="javascript:void(0);" ng-click="view.startAnalysis()">Analyze</a>
+      <a href="javascript:void(0);" ng-click="view.debugStop = true">Stop</a>
+      <br />
+      <div ng-if="view.paredPosts.length > 0">
+        Analyzing {{view.posts.length}} of {{view.blog.posts}} posts<br />
+        <a href="javascript:void(0);" ng-click="view.showTopPosts = !view.showTopPosts">Toggle view</a>
+      </div>
+    </div>
+    <div ng-if="view.showTopPosts && view.posts.length > 0">
+      <ul>
+        <li ng-repeat="post in view.posts | filter:view.analysisService.isOriginalPost | orderBy:'-note_count' | limitTo:view.displayPostLimit">
+          <img ng-if="post.photos[0].alt_sizes[2].url"
+            ng-src="{{post.photos[0].alt_sizes[2].url}}" />
+          <div ng-if="post.body"
+            ng-bind-html="post.body"></div>
+          <p>{{post.note_count}}</p>
+        </li>
+      </ul>
+    </div>
+    <div ng-if="!view.showTopPosts && view.paredPosts.length > 0">
+      <analysis-directive pared-posts="view.paredPosts"></analysis-directive>
+    </div>
+    <a href="javascript:void(0);" ng-if="view.posts.length > 0" ng-click="view.displayPostLimit = view.displayPostLimit + view.POST_LIMIT_INCR">Show more</a>
+  </div>
 </div>
