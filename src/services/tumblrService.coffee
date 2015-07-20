@@ -4,12 +4,12 @@
     # The following line is populated with a real key via
     # the gulp task 'set-key'
     API_KEY = '<consumer-key>'
-    BATCH_SIZE = 5
+    BATCH_SIZE = 20
     API_BASE_URL = 'http://api.tumblr.com/v2/'
 
     getBlog: (blogName) ->
-      console.log "Getting blog info for #{blogName}.tumblr.com"
-      url = API_BASE_URL + "blog/#{blogName}.tumblr.com/info/"
+      console.log "Getting blog info for #{blogName}"
+      url = API_BASE_URL + "blog/#{blogName}/info/"
       data =
         params:
           api_key: API_KEY
@@ -22,8 +22,8 @@
         console.log error
 
     getPosts: (blogName, batchNum) ->
-        console.log "Getting top posts for #{blogName}.tumblr.com"
-        url = API_BASE_URL + "blog/#{blogName}.tumblr.com/posts/"
+        console.log "Getting top posts for #{blogName}"
+        url = API_BASE_URL + "blog/#{blogName}/posts/"
         data =
           params:
             api_key: API_KEY

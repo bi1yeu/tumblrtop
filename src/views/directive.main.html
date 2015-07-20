@@ -1,20 +1,42 @@
-<div id="tumblr-top">
-  <div id="logo">
+<div id="tumblr-top" layout="column">
+  <md-toolbar layout="row">
+    <div id="logo" class="md-toolbar-tools">
       <h1><a href="/">Tumblr Top</a></h1>
-  </div>
+    </div>
+  </md-toolbar>
   <div id="content-container">
     <div id="controls">
-      <h2><a target="_blank" ng-href="{{view.blog.url}}">{{view.blog.name}}</a></h2>
-      <h3>{{view.blog.title}}</h3>
 
-      <input type="text" ng-model="view.blogName" />.tumblr.com
-      <a href="javascript:void(0);" ng-click="view.startAnalysis()">Analyze</a>
-      <a href="javascript:void(0);" ng-click="view.debugStop = true">Stop</a>
-      <br />
-      <div ng-if="view.paredPosts.length > 0">
-        Analyzing {{view.posts.length}} of {{view.blog.posts}} posts<br />
+      <div layout="row">
+        <md-input-container flex="">
+          <label>Blog Name</label>
+          <input type="text" ng-disabled="view.loadingPosts" ng-keypress="view.analyzeOnEnter($event)" ng-model="view.blogName">
+        </md-input-container>
+      </div>
+      <div id="start-stop-buttons" layout="row">
+        <md-button class="md-raised md-primary"
+          ng-if="!view.loadingPosts"
+          ng-disabled="view.blogName == undefined || view.blogName == ''"
+          ng-click="view.startAnalysis()">Analyze
+        </md-button>
+        <md-button class="md-raised"
+          ng-if="view.loadingPosts"
+          ng-click="view.stopAnalysis()">Stop
+        </md-button>
+      </div>
+      <div layout="row" ng-if="view.loadingPosts">
+        <md-progress-linear md-mode="determinate" value="{{(view.posts.length / view.blog.posts) * 100}}"></md-progress-linear>
+      </div>
+      <div layout="row" ng-if="view.paredPosts.length > 0">
+        <span ng-if="view.loadingPosts">Analyzing</span><span ng-if="!view.loadingPosts">Analyzed</span>&nbsp;{{view.posts.length}} of {{view.blog.posts}} posts
         <a href="javascript:void(0);" ng-click="view.showTopPosts = !view.showTopPosts">Toggle view</a>
       </div>
+
+      <div layout="row">
+        <h2><a target="_blank" ng-href="{{view.blog.url}}">{{view.blog.title}}</a></h2>
+      </div>
+
+
     </div>
     <div ng-if="view.showTopPosts && view.posts.length > 0">
       <ul>

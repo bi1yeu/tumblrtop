@@ -9,16 +9,19 @@
           controller: ($sce, analysisService, tumblrService) ->
             view = @
             view.POST_LIMIT_INCR = 3
+            _stop = false
 
             view.analysisService = analysisService
+
 
             _init = ->
               view.posts = []
               view.paredPosts = []
               view.blog = {}
               view.showTopPosts = true
-              view.debugStop = false
+              _stop = false
               view.displayPostLimit = 3
+              view.loadingPosts = false
 
             view.countOriginalPosts = ->
               count = 0
@@ -26,13 +29,24 @@
                 count += 1
               return count
 
+            view.analyzeOnEnter = (event) ->
+              if event.keyCode is 13
+                view.startAnalysis()
+
             view.startAnalysis = ->
               _init()
+              view.loadingPosts = true
+              if view.blogName.indexOf('.') is -1
+                view.blogName = view.blogName + '.tumblr.com'
               tumblrService.getBlog(view.blogName)
               .then (blog) ->
                 view.blog = blog
 
               _getPosts()
+
+            view.stopAnalysis = ->
+              _stop = true
+              view.loadingPosts = false
 
             view.countType = (type, originalOnly = false) ->
               analysisService.countPostsOfType view.paredPosts, type, originalOnly
@@ -78,10 +92,11 @@
               tumblrService.getPosts(view.blogName, batchNum)
               .then (posts) ->
                 console.log "got #{posts.length} posts"
-                # TODO remove batchNum limit; used for testing
-                if posts.length > 0 and not view.debugStop
+                if posts.length > 0 and not _stop
                   _processPosts posts
                   _getPosts batchNum += 1
+                else
+                  view.loadingPosts = false
 
             _init()
             return view

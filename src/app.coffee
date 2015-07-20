@@ -1,1 +1,1 @@
-angular.module 'tumblrTopApp', ['templates']
+angular.module 'tumblrTopApp', ['templates', 'ngMaterial']
