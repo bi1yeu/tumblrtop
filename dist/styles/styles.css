@@ -35,13 +35,13 @@ md-progress-linear {
 }
 
 #blog-name-input {
-  min-width: 40%;
+  min-width: 50%;
   margin-right: 20px;
 }
 
 md-card {
   min-height: 100px;
-  max-width: 40%;
+  max-width: 50%;
   cursor: pointer;
   opacity: 1;
   transition: opacity .2s linear;
@@ -49,6 +49,11 @@ md-card {
 
 .post-card {
   margin: 30px 0;
+}
+
+.post-external-link {
+  text-decoration: none;
+  color: inherit;
 }
 
 md-card:hover {

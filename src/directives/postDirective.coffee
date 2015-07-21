@@ -11,12 +11,10 @@
           controller: ($scope) ->
             view = @
             view.post = $scope.post
-            view.post.prettyDate = moment(view.post.date, 'ISO').format('MMMM Do YYYY, h:mm:ss a')
+            view.post.prettyDate = moment(view.post.date, 'ISO').format('MMMM Do YYYY')
             return view
           link: (scope, element, attrs, view)->
-            view.openPostOnBlog = ->
-              console.log view.post
-              window.open(view.post.post_url, '_blank')
+            console.log 'hi'
 
       return directive
 
