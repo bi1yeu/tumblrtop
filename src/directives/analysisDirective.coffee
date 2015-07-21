@@ -1,5 +1,5 @@
 (->
-  analysisDirective = ($templateCache)->
+  analysis = ($templateCache)->
 
       directive =
           restrict: 'E'
@@ -19,5 +19,5 @@
 
   angular
       .module('tumblrTopApp')
-      .directive('analysisDirective', analysisDirective)
+      .directive('analysis', analysis)
 )()

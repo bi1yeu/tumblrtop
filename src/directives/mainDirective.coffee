@@ -6,13 +6,13 @@
           replace: true
           template: $templateCache.get('directive.main.html')
           controllerAs: 'view'
-          controller: ($sce, analysisService, tumblrService) ->
+          controller: ($sce, $mdToast, analysisService, tumblrService) ->
             view = @
-            view.POST_LIMIT_INCR = 3
+            view.POST_LIMIT_INCR = 20
+            _POST_LIMIT_INIT = 20
             _stop = false
 
             view.analysisService = analysisService
-
 
             _init = ->
               view.posts = []
@@ -20,7 +20,7 @@
               view.blog = {}
               view.showTopPosts = true
               _stop = false
-              view.displayPostLimit = 3
+              view.displayPostLimit = _POST_LIMIT_INIT
               view.loadingPosts = false
 
             view.countOriginalPosts = ->
@@ -69,6 +69,8 @@
             _processPosts = (posts) ->
               for post in posts
                 post.body = $sce.trustAsHtml post.body
+                post.caption = $sce.trustAsHtml post.caption
+                post.photos?.caption = $sce.trustAsHtml post.photos.caption
                 view.posts.push post
                 original = analysisService.isOriginalPost post
                 if original
@@ -91,6 +93,16 @@
             _getPosts = (batchNum = 0) ->
               tumblrService.getPosts(view.blogName, batchNum)
               .then (posts) ->
+                if not posts?
+                  view.loadingPosts = false
+                  $mdToast.show(
+                    $mdToast.simple()
+                      .content("Couldn't find that blog, sorry!")
+                      .position("top right")
+                      .hideDelay(3000)
+                  );
+
+                  return
                 console.log "got #{posts.length} posts"
                 if posts.length > 0 and not _stop
                   _processPosts posts

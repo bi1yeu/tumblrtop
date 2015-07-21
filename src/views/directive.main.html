@@ -4,54 +4,54 @@
       <h1><a href="/">Tumblr Top</a></h1>
     </div>
   </md-toolbar>
-  <div id="content-container">
+  <md-content id="content-container">
     <div id="controls">
-
       <div layout="row">
-        <md-input-container flex="">
-          <label>Blog Name</label>
-          <input type="text" ng-disabled="view.loadingPosts" ng-keypress="view.analyzeOnEnter($event)" ng-model="view.blogName">
-        </md-input-container>
+        <div id="blog-name-input" layout="column">
+          <md-input-container flex="">
+            <label>Blog Name</label>
+            <input type="text" ng-disabled="view.loadingPosts" ng-keypress="view.analyzeOnEnter($event)" ng-model="view.blogName">
+          </md-input-container>
+        </div>
+        <div layout="column">
+          <div id="start-stop-buttons" layout="row">
+            <md-button class="md-raised md-primary"
+              ng-if="!view.loadingPosts"
+              ng-disabled="view.blogName == undefined || view.blogName == ''"
+              ng-click="view.startAnalysis()">Analyze
+            </md-button>
+            <md-button class="md-raised"
+              ng-if="view.loadingPosts"
+              ng-click="view.stopAnalysis()">Stop
+            </md-button>
+          </div>
+        </div>
       </div>
-      <div id="start-stop-buttons" layout="row">
-        <md-button class="md-raised md-primary"
-          ng-if="!view.loadingPosts"
-          ng-disabled="view.blogName == undefined || view.blogName == ''"
-          ng-click="view.startAnalysis()">Analyze
-        </md-button>
-        <md-button class="md-raised"
-          ng-if="view.loadingPosts"
-          ng-click="view.stopAnalysis()">Stop
-        </md-button>
-      </div>
+
       <div layout="row" ng-if="view.loadingPosts">
         <md-progress-linear md-mode="determinate" value="{{(view.posts.length / view.blog.posts) * 100}}"></md-progress-linear>
       </div>
+
+      <div layout="row">
+        <h2 id="blog-link"><a target="_blank" ng-href="{{view.blog.url}}">{{view.blog.title}}</a></h2>
+      </div>
+
       <div layout="row" ng-if="view.paredPosts.length > 0">
         <span ng-if="view.loadingPosts">Analyzing</span><span ng-if="!view.loadingPosts">Analyzed</span>&nbsp;{{view.posts.length}} of {{view.blog.posts}} posts
         <a href="javascript:void(0);" ng-click="view.showTopPosts = !view.showTopPosts">Toggle view</a>
       </div>
-
-      <div layout="row">
-        <h2><a target="_blank" ng-href="{{view.blog.url}}">{{view.blog.title}}</a></h2>
-      </div>
-
-
     </div>
+
     <div ng-if="view.showTopPosts && view.posts.length > 0">
-      <ul>
-        <li ng-repeat="post in view.posts | filter:view.analysisService.isOriginalPost | orderBy:'-note_count' | limitTo:view.displayPostLimit">
-          <img ng-if="post.photos[0].alt_sizes[2].url"
-            ng-src="{{post.photos[0].alt_sizes[2].url}}" />
-          <div ng-if="post.body"
-            ng-bind-html="post.body"></div>
-          <p>{{post.note_count}}</p>
-        </li>
-      </ul>
+        <md-card class="post-card" ng-repeat="post in view.posts | filter:view.analysisService.isOriginalPost | orderBy:'-note_count' | limitTo:view.displayPostLimit">
+          <post post="post"></post>
+        </md-card>
     </div>
     <div ng-if="!view.showTopPosts && view.paredPosts.length > 0">
-      <analysis-directive pared-posts="view.paredPosts"></analysis-directive>
+      <analysis pared-posts="view.paredPosts"></analysis>
     </div>
-    <a href="javascript:void(0);" ng-if="view.posts.length > 0" ng-click="view.displayPostLimit = view.displayPostLimit + view.POST_LIMIT_INCR">Show more</a>
-  </div>
+    <div id="show-more-link" layout="row" ng-if="view.posts.length > 0" >
+      <a href="javascript:void(0);" ng-click="view.displayPostLimit = view.displayPostLimit + view.POST_LIMIT_INCR">Show more</a>
+    </div>
+  </md-content>
 </div>
