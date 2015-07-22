@@ -11,7 +11,7 @@
           controller: ($scope) ->
             view = @
             view.post = $scope.post
-            view.post.prettyDate = moment(view.post.date, 'ISO').format('MMMM Do YYYY')
+            view.post.prettyDate = moment(view.post.date).format('MMMM Do, YYYY')
             return view
           link: (scope, element, attrs, view)->
             console.log 'hi'

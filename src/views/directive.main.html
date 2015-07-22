@@ -42,10 +42,19 @@
       </div>
     </div>
 
-    <div ng-if="view.showTopPosts && view.posts.length > 0">
-        <md-card class="post-card" ng-repeat="post in view.posts | filter:view.analysisService.isOriginalPost | orderBy:'-note_count' | limitTo:view.displayPostLimit">
-          <post post="post"></post>
-        </md-card>
+    <div id="grid-list-container" ng-if="view.showTopPosts && view.posts.length > 0">
+      <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="20px" md-gutter-gt-sm="20px">
+        <md-grid-tile ng-repeat="post in view.posts | filter:view.analysisService.isOriginalPost | orderBy:'-note_count' | limitTo:view.displayPostLimit" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
+          <md-card class="post-card">
+            <post post="post"></post>
+          </md-card>
+          <md-grid-tile-footer class="post-footer post-info">
+            <div class="notes"><span class="note-count">{{post.note_count | number : fractionSize}}</span> notes</div>
+            <div class="date">{{post.prettyDate}}</div>
+            <div class="tags"><span ng-repeat="tag in post.tags">#{{tag}} </span></div>
+          </md-grid-tile-footer>
+        </md-grid-tile>
+      </md-grid-list>
     </div>
     <div ng-if="!view.showTopPosts && view.paredPosts.length > 0">
       <analysis pared-posts="view.paredPosts"></analysis>

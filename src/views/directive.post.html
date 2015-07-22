@@ -1,20 +1,11 @@
 <a class="post-external-link" ng-href="{{view.post.post_url}}" target="_blank">
   <div>
-    <img ng-repeat="photo in view.post.photos" class="md-card-image" ng-src="{{photo.alt_sizes[0].url}}" />
+    <img ng-repeat="photo in view.post.photos" class="md-card-image" ng-src="{{photo.alt_sizes[1].url}}" />
     <md-card-content>
       <h2 class="md-title">{{view.post.title}}</h2>
-      <h3 class="md-title">{{ view.post.note_count | number : fractionSize}} notes</h3>
       <p ng-bind-html="view.post.caption"></p>
       <p ng-bind-html="view.post.photos.caption"></p>
       <p ng-bind-html="view.post.body"></p>
-      <div class="post-info">
-        <p>{{view.post.prettyDate}}</p>
-        <p>Post type: {{view.post.type}}</p>
-        <p class="tags">
-          <span ng-repeat="tag in view.post.tags">#{{tag}} </span>
-        </p>
-
-      </div>
     </md-card-content>
   </div>
 </a>

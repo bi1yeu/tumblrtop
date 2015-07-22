@@ -8,8 +8,8 @@
           controllerAs: 'view'
           controller: ($sce, $mdToast, analysisService, tumblrService) ->
             view = @
-            view.POST_LIMIT_INCR = 20
-            _POST_LIMIT_INIT = 20
+            view.POST_LIMIT_INCR = 18
+            _POST_LIMIT_INIT = 18
             _stop = false
 
             view.analysisService = analysisService
@@ -71,6 +71,7 @@
                 post.body = $sce.trustAsHtml post.body
                 post.caption = $sce.trustAsHtml post.caption
                 post.photos?.caption = $sce.trustAsHtml post.photos.caption
+                post.note_count ?= 0
                 view.posts.push post
                 original = analysisService.isOriginalPost post
                 if original

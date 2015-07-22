@@ -2,7 +2,16 @@
   analysisService = ->
 
     isOriginalPost: (post) ->
-      return not post.reblogged_from_id?
+      if post.reblogged_from_id?
+        return false
+
+      # Some posts with deleted source blogs don't have a
+      # reblogged_from_id; this is an attempt to still
+      # differentiate those reblogs
+      if post.trail?.length > 0 and post.trail[0]?.content.indexOf('.tumblr.com/') isnt -1
+        return false
+
+      return true
 
     countPostsOfType: (posts, type, originalOnly = false) ->
       count = 0
