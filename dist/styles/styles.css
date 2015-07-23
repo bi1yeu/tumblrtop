@@ -46,12 +46,9 @@ md-progress-linear {
 md-card {
   min-height: 100px;
   max-width: 50%;
-  cursor: pointer;
-  opacity: 1;
-  transition: opacity .2s linear;
 }
 
-.post-card {
+.post-container {
   max-width: 100%;
   width: 100%;
   overflow: hidden;
@@ -59,13 +56,26 @@ md-card {
   margin: 0;
 }
 
+md-grid-tile figure {
+  opacity: 1;
+  transition: opacity .2s linear;
+  cursor: pointer;
+}
+
+
+md-grid-tile figure:hover {
+  opacity: .6;
+}
+
+.post-card {
+  max-width: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+
 .post-external-link {
   text-decoration: none;
   color: inherit;
-}
-
-md-card:hover {
-  opacity: .6;
 }
 
 md-card-content h2, h3 {
@@ -85,21 +95,26 @@ md-card-content .post-info {
 
 .post-footer {
   background: rgba(0, 0, 0, 0.76);
-  height: 33.33%;
+  height: 30%;
   padding: 5%;
+  margin: 0 8px;
+}
+
+figcaption, .notes {
+  width: 100%;
 }
 
 .note-count {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .date {
-  font-size: .9em;
+  font-size: .8em;
   margin-bottom: 8%;
 }
 
 .tags {
-  font-size: .7em;
+  font-size: .6em;
 }
 
 #show-more-link {

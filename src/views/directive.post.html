@@ -1,11 +1,23 @@
-<a class="post-external-link" ng-href="{{view.post.post_url}}" target="_blank">
-  <div>
-    <img ng-repeat="photo in view.post.photos" class="md-card-image" ng-src="{{photo.alt_sizes[1].url}}" />
-    <md-card-content>
-      <h2 class="md-title">{{view.post.title}}</h2>
-      <p ng-bind-html="view.post.caption"></p>
-      <p ng-bind-html="view.post.photos.caption"></p>
-      <p ng-bind-html="view.post.body"></p>
-    </md-card-content>
-  </div>
-</a>
+<div class="post-container">
+    <md-card class="post-card">
+    <a class="post-external-link" ng-href="{{view.post.post_url}}" target="_blank">
+      <div>
+        <img ng-repeat="photo in view.post.photos" class="md-card-image" ng-src="{{photo.alt_sizes[1].url}}" />
+        <md-card-content>
+          <h2 class="md-title">{{view.post.title}}</h2>
+          <p ng-bind-html="view.post.caption"></p>
+          <p ng-bind-html="view.post.photos.caption"></p>
+          <p ng-bind-html="view.post.body"></p>
+        </md-card-content>
+      </div>
+    </a>
+  </md-card>
+  <md-grid-tile-footer class="post-footer post-info">
+    <div layout="row">
+      <div class="notes"><span class="note-count">{{view.post.note_count | number : fractionSize}}</span> notes</div>
+      <div><i class="fa" ng-class="view.iconClasses[view.post.type]"></i></div>
+    </div>
+    <div class="date">{{view.post.prettyDate}}</div>
+    <div class="tags"><span ng-repeat="tag in view.post.tags">#{{tag}} </span></div>
+  </md-grid-tile-footer>
+</div>
