@@ -15,7 +15,6 @@
 
     countPostsOfType: (posts, type, originalOnly = false) ->
       count = 0
-
       countPost = (post) ->
         if originalOnly
           return post.type is type and post.originalOnly
@@ -34,6 +33,7 @@
       else if type is 'reblog'
         for post in posts when post.reblogCount?
           count += post.reblogCount
+
       return count
 
   angular

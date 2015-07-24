@@ -4,10 +4,37 @@
       <div>
         <img ng-repeat="photo in view.post.photos" class="md-card-image" ng-src="{{photo.alt_sizes[1].url}}" />
         <md-card-content>
-          <h2 class="md-title">{{view.post.title}}</h2>
-          <p ng-bind-html="view.post.caption"></p>
-          <p ng-bind-html="view.post.photos.caption"></p>
-          <p ng-bind-html="view.post.body"></p>
+          <h2 ng-if="view.post.title" class="md-title">{{view.post.title}}</h2>
+          <div ng-if="view.post.type == 'audio'">
+            <h3 class="md-title">
+              {{view.post.artist}}
+              <br ng-if="view.post.artist && view.post.track_name" />
+              {{view.post.track_name}}
+              <i class="fa" ng-class="view.iconClasses[view.post.type]"></i>
+            </h3>
+            <div class="audio-embed" ng-bind-html="view.post.player"></div>
+            <img ng-if="view.post.album_art" ng-src="{{view.post.album_art}}" />
+          </div>
+          <div ng-if="view.post.type == 'video'" ng-bind-html="view.post.player[1].embed_code">
+          </div>
+          <p ng-if="view.post.caption" ng-bind-html="view.post.caption"></p>
+          <p ng-if="view.post.photos.caption" ng-bind-html="view.post.photos.caption"></p>
+          <p ng-if="view.post.type != 'chat'" ng-bind-html="view.post.body"></p>
+          <div class="chat" ng-if="view.post.type == 'chat'">
+            <p ng-repeat="line in view.post.dialogue"><i>{{line.name}}:</i> {{line.phrase}}</p>
+          </div>
+          <div class="answer" ng-if="view.post.type == 'answer'">
+            <p><i>{{view.post.asking_name}}</i>:</p>
+            <blockquote>
+              {{view.post.question}}
+            </blockquote>
+            <br />
+            <span ng-bind-html="view.post.answer"></span>
+          </div>
+          <div class="quote" ng-if="view.post.type == 'quote'">
+            <h3 class="md-title">{{view.post.text}}</h3>
+            <p ng-if="view.post.source" ng-bind-html="view.post.source"></p>
+          </div>
         </md-card-content>
       </div>
     </a>

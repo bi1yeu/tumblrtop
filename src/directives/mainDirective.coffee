@@ -71,7 +71,16 @@
                 post.body = $sce.trustAsHtml post.body
                 post.caption = $sce.trustAsHtml post.caption
                 post.photos?.caption = $sce.trustAsHtml post.photos.caption
+                # For video posts, the embed_code property is HTML for an iframe with fixed
+                # sizes. This is janky, but it looks better than the canned width.
+                if post.player instanceof Array
+                  post.player[1].embed_code = $sce.trustAsHtml post.player[1].embed_code.replace(/width="\d+"/, "width=\"100%\"")
+                else if post.player?
+                  post.player = $sce.trustAsHtml post.player.replace(/width="\d+"/, "width=\"100%\"").replace(/height="\d+"/, "height=\"30%\"")
+                post.answer = $sce.trustAsHtml post.answer
+                post.source = $sce.trustAsHtml post.source
                 post.note_count ?= 0
+
                 view.posts.push post
                 original = analysisService.isOriginalPost post
                 if original

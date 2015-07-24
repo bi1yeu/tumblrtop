@@ -52,7 +52,7 @@
     <div ng-if="!view.showTopPosts && view.paredPosts.length > 0">
       <analysis pared-posts="view.paredPosts"></analysis>
     </div>
-    <div id="show-more-link" layout="row" ng-if="view.posts.length > 0" >
+    <div id="show-more-link" layout="row" ng-if="view.countOriginalPosts() > 0 && view.displayPostLimit <= view.countOriginalPosts()" >
       <a href="javascript:void(0);" ng-click="view.displayPostLimit = view.displayPostLimit + view.POST_LIMIT_INCR">Show more</a>
     </div>
   </md-content>

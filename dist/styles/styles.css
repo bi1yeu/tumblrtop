@@ -82,7 +82,7 @@ md-card-content h2, h3 {
   padding-left: 20px;
 }
 
-md-card-content p {
+md-card-content p, .chat, .answer, .quote {
   padding: 0 10px;
   line-height: 1.5em;
 }
@@ -102,6 +102,11 @@ md-card-content .post-info {
 
 figcaption, .notes {
   width: 100%;
+}
+
+/* soundcloud audio player widget */
+.audio-embed .widget {
+  max-height: 30%;
 }
 
 .note-count {
