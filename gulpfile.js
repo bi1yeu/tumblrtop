@@ -17,7 +17,8 @@ var bowerDir = './bower_components/',
     coffeeFiles = [srcDir + '**/*.coffee', srcDir + '*.coffee'],
     testFiles = ['spec/*.coffee'],
     htmlFiles = srcDir + 'views/**/*.html',
-    jsDir = distDir + 'js/';
+    jsDir = distDir + 'js/',
+    stylesDir = distDir + 'styles/';
 
 gulp.task('unset-key', shell.task([
   "sed -i '' \"s/API_KEY = '.*'/API_KEY = '<consumer-key>'/g\" */**/tumblrService.coffee"
@@ -55,6 +56,9 @@ gulp.task('coffee', function() {
 gulp.task('build', ['clean', 'set-key', 'coffee', 'html'], function() {
   gulp.src(bowerDir + '**/*.min.js')
     .pipe(gulp.dest(jsDir));
+
+  gulp.src(bowerDir + '**/*.min.css')
+    .pipe(gulp.dest(stylesDir));
 });
 
 gulp.task('watch', function () {
