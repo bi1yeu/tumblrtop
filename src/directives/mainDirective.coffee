@@ -38,6 +38,7 @@
               view.loadingPosts = true
               if view.blogName.indexOf('.') is -1
                 view.blogName = view.blogName + '.tumblr.com'
+              view.blogName = view.blogName.replace(/\//g, '').replace(/http[s]?/g, '').replace(/:/g, '')
               tumblrService.getBlog(view.blogName)
               .then (blog) ->
                 view.blog = blog
