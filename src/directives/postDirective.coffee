@@ -22,10 +22,7 @@
               video: 'fa-film'
               answer: 'fa-question'
 
-
             return view
-          link: (scope, element, attrs, view)->
-            console.log 'hi'
 
       return directive
 

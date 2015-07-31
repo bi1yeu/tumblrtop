@@ -10,6 +10,8 @@
             view = @
             view.POST_LIMIT_INCR = 18
             _POST_LIMIT_INIT = 18
+            _BLOG_NOT_FOUND_MSG = "Couldn't find that blog, sorry!"
+            _POST_RETRIEVAL_ERR_MSG = "Couldn't get posts :("
             _stop = false
 
             view.analysisService = analysisService
@@ -39,9 +41,14 @@
               view.blogName = _cleanBlogName view.blogName
               tumblrService.getBlog(view.blogName)
               .then (blog) ->
+                unless blog?
+                  _showErrorMessage _BLOG_NOT_FOUND_MSG
+                  view.loadingPosts = false
+                  return
                 view.blog = blog
-
-              _getPosts()
+                _getPosts()
+              , ->
+                _showErrorMessage _BLOG_NOT_FOUND_MSG
 
             view.stopAnalysis = ->
               _stop = true
@@ -112,29 +119,31 @@
               tumblrService.getPosts(view.blogName, batchNum)
               .then (posts) ->
                 errorMessage = if batchNum is 0\
-                  then "Couldn't find that blog, sorry!"\
-                  else "Couldn't get posts :("
+                  then _BLOG_NOT_FOUND_MSG\
+                  else _POST_RETRIEVAL_ERR_MSG
                 if not posts?
                   view.loadingPosts = false
-                  $mdToast.show(
-                    $mdToast.simple()
-                      .content(errorMessage)
-                      .position("top right")
-                      .hideDelay(3000)
-                  );
+                  _showErrorMessage errorMessage
 
                   return
-                console.log "got #{posts.length} posts"
                 if posts.length > 0 and not _stop
                   _processPosts posts
                   _getPosts batchNum += 1
                 else
                   view.loadingPosts = false
+              , ->
+                _showErrorMessage _POST_RETRIEVAL_ERR_MSG
+
+            _showErrorMessage = (message) ->
+              $mdToast.show(
+                $mdToast.simple()
+                  .content(message)
+                  .position('top right')
+                  .hideDelay(3000)
+              )
 
             _init()
             return view
-          link: (scope, element, attrs)->
-            console.log 'hey'
 
       return directive
 
