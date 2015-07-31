@@ -44,7 +44,7 @@
       <div class="notes"><span class="note-count">{{view.post.note_count | number : fractionSize}}</span> notes</div>
       <div><i class="fa" ng-class="view.iconClasses[view.post.type]"></i></div>
     </div>
-    <div class="date">{{view.post.prettyDate}}</div>
+    <div class="date">{{view.formatDate(view.post.date)}}</div>
     <div class="tags"><span ng-repeat="tag in view.post.tags">#{{tag}} </span></div>
   </md-grid-tile-footer>
 </div>

@@ -11,7 +11,7 @@
           controller: ($scope) ->
             view = @
             view.post = $scope.post
-            view.post.prettyDate = moment(new Date(view.post.date)).format('MMMM Do, YYYY')
+
             view.iconClasses =
               text: 'fa-file-text'
               photo: 'fa-camera-retro'
@@ -21,6 +21,11 @@
               audio: 'fa-music'
               video: 'fa-film'
               answer: 'fa-question'
+
+            view.formatDate = (date) ->
+              # FF requires this replace
+              date = date.replace(/-/g,'/')
+              moment(new Date(date)).format('MMMM Do, YYYY')
 
             return view
 

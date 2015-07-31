@@ -54,12 +54,6 @@
               _stop = true
               view.loadingPosts = false
 
-            view.countType = (type, originalOnly = false) ->
-              analysisService.countPostsOfType view.paredPosts, type, originalOnly
-
-            view.countNoteType = (type) ->
-              analysisService.countNotesOfType view.paredPosts, type
-
             _cleanBlogName = (blogName) ->
               if blogName.indexOf('.') is -1
                 blogName = blogName + '.tumblr.com'
