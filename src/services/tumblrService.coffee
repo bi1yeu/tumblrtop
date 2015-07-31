@@ -18,7 +18,6 @@
       .then (response) ->
         response.data.response.blog
       , (error) ->
-        alert 'Error getting blog info!'
         console.log error
 
     getPosts: (blogName, batchNum) ->
@@ -37,7 +36,6 @@
         .then (response) ->
           response.data.response.posts
         , (error) ->
-          alert 'Error getting posts!'
           console.log error
 
   angular

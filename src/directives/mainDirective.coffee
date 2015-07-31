@@ -36,9 +36,7 @@
             view.startAnalysis = ->
               _init()
               view.loadingPosts = true
-              if view.blogName.indexOf('.') is -1
-                view.blogName = view.blogName + '.tumblr.com'
-              view.blogName = view.blogName.replace(/\//g, '').replace(/http[s]?/g, '').replace(/:/g, '')
+              view.blogName = _cleanBlogName view.blogName
               tumblrService.getBlog(view.blogName)
               .then (blog) ->
                 view.blog = blog
@@ -54,6 +52,11 @@
 
             view.countNoteType = (type) ->
               analysisService.countNotesOfType view.paredPosts, type
+
+            _cleanBlogName = (blogName) ->
+              if blogName.indexOf('.') is -1
+                blogName = blogName + '.tumblr.com'
+              blogName.replace(/\//g, '').replace(/^http[s]?/g, '').replace(/:/g, '')
 
             _processNotes = (notes) ->
               unless notes?
@@ -108,11 +111,14 @@
             _getPosts = (batchNum = 0) ->
               tumblrService.getPosts(view.blogName, batchNum)
               .then (posts) ->
+                errorMessage = if batchNum is 0\
+                  then "Couldn't find that blog, sorry!"\
+                  else "Couldn't get posts :("
                 if not posts?
                   view.loadingPosts = false
                   $mdToast.show(
                     $mdToast.simple()
-                      .content("Couldn't find that blog, sorry!")
+                      .content(errorMessage)
                       .position("top right")
                       .hideDelay(3000)
                   );
