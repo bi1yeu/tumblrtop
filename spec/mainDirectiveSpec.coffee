@@ -1,4 +1,4 @@
-describe 'Main Directive', () ->
+describe 'Main Directive', ->
   $scope = null
   $q = null
   $mdToast = null
