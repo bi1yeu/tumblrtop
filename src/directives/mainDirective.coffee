@@ -20,6 +20,7 @@
               view.posts = []
               view.paredPosts = []
               view.blog = {}
+              delete view.avatarUrl
               view.showTopPosts = true
               _stop = false
               view.displayPostLimit = _POST_LIMIT_INIT
@@ -46,6 +47,7 @@
                   view.loadingPosts = false
                   return
                 view.blog = blog
+                _getAvatar()
                 _getPosts()
               , ->
                 _showErrorMessage _BLOG_NOT_FOUND_MSG
@@ -127,6 +129,11 @@
                   view.loadingPosts = false
               , ->
                 _showErrorMessage _POST_RETRIEVAL_ERR_MSG
+
+            _getAvatar = ->
+              tumblrService.getAvatarUrl(view.blogName)
+              .then (url) ->
+                view.avatarUrl = url
 
             _showErrorMessage = (message) ->
               $mdToast.show(

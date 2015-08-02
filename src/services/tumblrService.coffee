@@ -8,17 +8,30 @@
     API_KEY = '<consumer-key>'
     BATCH_SIZE = 20
     API_BASE_URL = 'http://api.tumblr.com/v2/'
+    defaultParams =
+      api_key: API_KEY
+      callback: 'JSON_CALLBACK'
 
     getBlog: (blogName) ->
       deferred = $q.defer()
       url = API_BASE_URL + "blog/#{blogName}/info/"
       data =
-        params:
-          api_key: API_KEY
-          callback: 'JSON_CALLBACK'
+        params: defaultParams
       $http.jsonp url, data
       .then (response) ->
         deferred.resolve response.data.response.blog
+      , (error) ->
+        deferred.reject error
+      deferred.promise
+
+    getAvatarUrl: (blogName) ->
+      deferred = $q.defer()
+      url = API_BASE_URL + "blog/#{blogName}/avatar/64"
+      data =
+        params: defaultParams
+      $http.jsonp url, data
+      .then (response) ->
+        deferred.resolve response.data.response.avatar_url
       , (error) ->
         deferred.reject error
       deferred.promise
@@ -27,14 +40,12 @@
       deferred = $q.defer()
       url = API_BASE_URL + "blog/#{blogName}/posts/"
       data =
-        params:
-          api_key: API_KEY
+        params: angular.extend {}, defaultParams,
           notes_info: true
           reblog_info: true
           notes_info: true
           offset: batchNum * BATCH_SIZE
           limit: BATCH_SIZE
-          callback: 'JSON_CALLBACK'
       $http.jsonp url, data
       .then (response) ->
         deferred.resolve response.data.response.posts

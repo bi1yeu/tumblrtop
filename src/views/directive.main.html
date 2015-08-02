@@ -33,7 +33,12 @@
       </div>
 
       <div layout="row">
-        <h2 id="blog-link"><a target="_blank" ng-href="{{view.blog.url}}">{{view.blog.title}}</a></h2>
+        <div ng-if="view.avatarUrl" class="round">
+          <a ng-href="{{view.blog.url}}" target="_blank">
+            <img ng-src="{{view.avatarUrl}}" alt="{{view.blogName}}" />
+          </a>
+        </div>
+        <h2 class="md-headline" id="blog-link"><a target="_blank" ng-href="{{view.blog.url}}">{{view.blog.title}}</a></h2>
       </div>
 
       <div layout="row" ng-if="view.paredPosts.length > 0">

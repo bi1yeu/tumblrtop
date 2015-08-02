@@ -115,6 +115,14 @@ describe 'Main Directive', ->
             # promise
             deferred.resolve undefined
           deferred.promise
+      getAvatarUrl: (success) ->
+        spyOn(tumblrService, 'getAvatarUrl').and.callFake (blogName) ->
+          deferred = $q.defer()
+          if success
+            deferred.resolve 'https://33.media.tumblr.com/avatar_abc123_64.png'
+          else
+            deferred.resolve undefined
+          deferred.promise
 
   describe 'parsing posts', ->
     it 'counts the number of original posts', ->
@@ -127,6 +135,7 @@ describe 'Main Directive', ->
     beforeEach ->
       _set.service.getBlog true
       _set.service.getPosts true
+      _set.service.getAvatarUrl true
 
     it 'adds tumblr domain to handles', ->
       $scope.view.blogName = 'testblog'
@@ -166,6 +175,7 @@ describe 'Main Directive', ->
       expect($scope.view.loadingPosts).toBeFalsy()
 
     it 'shows error when posts cannot be retrieved', ->
+      _set.service.getAvatarUrl true
       _set.service.getBlog true
       _set.service.getPosts false
       spy = _set.mdToast.show()

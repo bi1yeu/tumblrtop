@@ -2,13 +2,12 @@ body {
   width: 100%;
 }
 
-#logo {
-  font-size: 22px;
-  font-family: 'Vidaloka', serif;
-}
-
 md-toolbar {
   height: 10vh;
+}
+
+a {
+  color: #3F51B5;
 }
 
 #controls {
@@ -21,9 +20,31 @@ md-toolbar {
   height: 90vh;
 }
 
-#blog-link {
+.round {
+  border-radius: 50%;
+  transition: border-radius .1s linear;
+  overflow: hidden;
+  width: 64px;
+  height: 64px;
+  margin: 5px 25px 25px 0;
+}
+
+.round:hover {
+  border-radius: 0%;
+}
+.round img {
+  display: block;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+#blog-link a {
   text-decoration: none;
   color: ;
+}
+
+#blog-link a:hover {
+  text-decoration: underline;
 }
 
 md-progress-linear {
