@@ -146,3 +146,7 @@ figcaption, .notes {
 #show-more-link {
   height: 10%;
 }
+
+#analysis md-slider {
+    width: 70%;
+}

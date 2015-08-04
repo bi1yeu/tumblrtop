@@ -1,4 +1,14 @@
-<div>
+<div id="analysis">
+  <div layout="row">
+    <span>Reblogged ({{view.rebloggedPostCount}})</span>
+    <md-slider aria-label="ratio original to reblogged"
+      ng-disabled="true"
+      ng-model="view.percentOriginal"
+      min="0"
+      max="100">
+    </md-slider>
+    <span>Original ({{view.originalPostCount}})</span>
+  </div>
   Total post count: {{view.paredPosts.length}}<br />
   Text post count: {{view.countType('text')}} <br />
   Original text post count: {{view.countType('text', true)}} <br />

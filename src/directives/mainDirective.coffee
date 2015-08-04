@@ -80,9 +80,13 @@
                 # For audio/video posts, the player/player.embed_code property is HTML
                 # for an iframe with fixed sizes. This is janky, but it looks better
                 # than the canned width.
-                if post.player instanceof Array and (typeof post.player[1].embed_code is 'string' or post.player[1].embed_code instanceof String)
+                if post.player instanceof Array and
+                  (typeof post.player[1].embed_code is 'string' or
+                    post.player[1].embed_code instanceof String)
                   post.player[1].embed_code = $sce.trustAsHtml post.player[1].embed_code.replace(/width="\d+"/, "width=\"100%\"")
-                else if post.player? and (typeof post.player is 'string' or post.player instanceof String)
+                else if post.player? and
+                  (typeof post.player is 'string' or
+                    post.player instanceof String)
                   post.player = $sce.trustAsHtml post.player.replace(/width="\d+"/, "width=\"100%\"").replace(/height="\d+"/, "height=\"30%\"")
                 post.answer = $sce.trustAsHtml post.answer
                 post.source = $sce.trustAsHtml post.source

@@ -54,7 +54,7 @@ gulp.task('coffee', function() {
 })
 
 gulp.task('build', ['clean', 'set-key', 'coffee', 'html'], function() {
-  gulp.src(bowerDir + '**/*.min.js')
+  gulp.src([bowerDir + '**/*.min.js', bowerDir + '**/*-min.js'])
     .pipe(gulp.dest(jsDir));
 
   gulp.src(bowerDir + '**/*.min.css')
