@@ -16,6 +16,10 @@ describe 'Tumblr Service', ->
         posts: 123
         name: 'testblog'
 
+  _avatarResponse =
+    response:
+      avatar_url: 'https://33.media.tumblr.com/avatar_abc123_64.png'
+
   _postsResponse =
     response:
       posts: [
@@ -44,6 +48,12 @@ describe 'Tumblr Service', ->
       tumblrService.getBlog('testblog.tumblr.com')
       $httpBackend.expectJSONP(/http:\/\/api.tumblr.com\/v2\/blog\/testblog.tumblr.com\/info\/.*/)
         .respond(200, _blogResponse)
+      $httpBackend.flush()
+
+    it 'gets avatar url', ->
+      tumblrService.getAvatarUrl('testblog.tumblr.com')
+      $httpBackend.expectJSONP(/http:\/\/api.tumblr.com\/v2\/blog\/testblog.tumblr.com\/avatar\/64.*/)
+        .respond(200, _avatarResponse)
       $httpBackend.flush()
 
     it 'gets posts', ->
