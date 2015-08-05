@@ -1,1 +1,1 @@
-angular.module 'tumblrTopApp', ['templates', 'ngMaterial']
+angular.module 'tumblrTopApp', ['templates', 'ngMaterial', 'highcharts-ng']

@@ -9,6 +9,9 @@
     </md-slider>
     <span>Original ({{view.originalPostCount}})</span>
   </div>
+  <div>
+    <highchart id="chart1" config="view.chartConfig"></highchart>
+  </div>
   Total post count: {{view.paredPosts.length}}<br />
   Text post count: {{view.countType('text')}} <br />
   Original text post count: {{view.countType('text', true)}} <br />

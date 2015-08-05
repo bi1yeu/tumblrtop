@@ -104,6 +104,7 @@
                 paredPost =
                   id: post.id
                   date: post.date
+                  timestamp: post.timestamp
                   original: original
                   type: post.type
                   tags: post.tags
