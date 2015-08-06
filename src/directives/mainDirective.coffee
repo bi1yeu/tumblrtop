@@ -106,13 +106,14 @@
                   date: post.date
                   timestamp: post.timestamp
                   original: original
+                  url: post.post_url
                   type: post.type
                   tags: post.tags
+                  noteCount: post.note_count
 
                 if paredPost.original
-                    paredPost.noteCount = post.note_count
-                    paredPost.reblogCount = reblogCount
-                    paredPost.likeCount = likeCount
+                  paredPost.reblogCount = reblogCount
+                  paredPost.likeCount = likeCount
 
                 view.paredPosts.push paredPost
 

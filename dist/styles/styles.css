@@ -150,3 +150,11 @@ figcaption, .notes {
 #analysis md-slider {
     width: 70%;
 }
+
+#analysis md-divider {
+  margin: 50px 0;
+}
+
+#analysis .chart-controls {
+  margin: 30px 5%;
+}

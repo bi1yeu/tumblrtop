@@ -9,9 +9,27 @@
     </md-slider>
     <span>Original ({{view.originalPostCount}})</span>
   </div>
+  <md-divider></md-divider>
   <div>
-    <highchart id="chart1" config="view.chartConfig"></highchart>
+    <highchart config="view.notesOverTime"></highchart>
   </div>
+   <div class="chart-controls" layout="column">
+      <md-switch ng-model="view.chartControls.notesOverTimeInclReblogs"
+        aria-label="Include Reblogged Posts">
+        Include Reblogged Posts
+      </md-switch>
+    </div>
+  <md-divider></md-divider>
+  <div>
+    <highchart config="view.postCountsByType"></highchart>
+    <div class="chart-controls" layout="column">
+      <md-switch ng-model="view.chartControls.postCountsByTypeInclReblogs"
+        aria-label="Include Reblogged Posts">
+        Include Reblogged Posts
+      </md-switch>
+    </div>
+  </div>
+  <md-divider></md-divider>
   Total post count: {{view.paredPosts.length}}<br />
   Text post count: {{view.countType('text')}} <br />
   Original text post count: {{view.countType('text', true)}} <br />

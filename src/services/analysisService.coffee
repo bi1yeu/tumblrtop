@@ -1,6 +1,10 @@
 (->
   analysisService = ->
 
+    _removeReblogs = (posts) ->
+      _.filter posts, (post) ->
+        post.original
+
     isOriginalPost: (post) ->
       if post.reblogged_from_id?
         return false
@@ -26,13 +30,28 @@
       return count
 
     getNotesOverTimeSeriesData: (posts, originalOnly = true) ->
+      if originalOnly
+        posts = _removeReblogs posts
       seriesData = _.map posts, (post) ->
-        if (originalOnly and post.original) or not originalOnly
-          [+post.timestamp * 1000, post.noteCount]
+        x: +post.timestamp * 1000
+        y: post.noteCount
+        url: post.url
+        type: post.type
       seriesData = _.filter seriesData, (datum) ->
         datum?
+
+    getPostTypeSeriesData: (posts, originalOnly = true) ->
+      if originalOnly
+        posts = _removeReblogs posts
+      counts = _.countBy posts, (post) ->
+        post.type
+      seriesData = []
+      for type, count of counts
+        seriesData.push
+          name: type[0].toUpperCase() + type.slice(1)
+          y: count
       _.sortBy seriesData, (datum) ->
-        datum[0]
+        datum.name
 
     countNotesOfType: (posts, type) ->
       count = 0
