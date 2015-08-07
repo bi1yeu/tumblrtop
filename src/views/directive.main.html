@@ -18,7 +18,7 @@
             <md-button class="md-raised md-primary"
               ng-if="!view.loadingPosts"
               ng-disabled="view.blogName == undefined || view.blogName == ''"
-              ng-click="view.startAnalysis()">Analyze
+              ng-click="view.startAnalysis()">Get Posts
             </md-button>
             <md-button class="md-raised"
               ng-if="view.loadingPosts"
@@ -32,19 +32,42 @@
         <md-progress-linear md-mode="determinate" value="{{(view.posts.length / view.blog.posts) * 100}}"></md-progress-linear>
       </div>
 
+      <div id="status" layout="row">
+        <div ng-if="view.loadingPosts && view.posts.length == 0">
+          Loading...
+        </div>
+        <div ng-if="view.posts.length > 0">
+          <span ng-if="view.loadingPosts">Reading</span><span ng-if="!view.loadingPosts">Read</span>&nbsp;{{view.posts.length}} of {{view.blog.posts}} posts
+        </div>
+      </div>
+
       <div layout="row">
         <div ng-if="view.avatarUrl" class="round">
           <a ng-href="{{view.blog.url}}" target="_blank">
             <img ng-src="{{view.avatarUrl}}" alt="{{view.blogName}}" />
           </a>
         </div>
-        <h2 class="md-headline" id="blog-link"><a target="_blank" ng-href="{{view.blog.url}}">{{view.blog.title}}</a></h2>
+        <h2 class="md-display-3" id="blog-link">
+          <a target="_blank" ng-href="{{view.blog.url}}">
+            <span ng-if="view.blog.title">{{view.blog.title}}</span>
+            <span ng-if="!view.blog.title">{{view.blog.name}}</span>
+          </a>
+        </h2>
+        <span ng-if="view.blog.is_nsfw" class="nsfw">NSFW</span>
       </div>
+    </div>
 
-      <div layout="row" ng-if="view.paredPosts.length > 0">
-        <span ng-if="view.loadingPosts">Analyzing</span><span ng-if="!view.loadingPosts">Analyzed</span>&nbsp;{{view.posts.length}} of {{view.blog.posts}} posts
-        <a href="javascript:void(0);" ng-click="view.showTopPosts = !view.showTopPosts">Toggle view</a>
-      </div>
+    <div ng-if="view.posts.length > 0" id="tabs">
+      <md-button ng-disabled="view.showTopPosts"
+        ng-click="view.showTopPosts = true">
+        Top Original Posts
+      </md-button>
+      <span class="separator">|</span>
+      <md-button ng-disabled="!view.showTopPosts"
+        ng-click="view.showTopPosts = false">
+        Analysis
+      </md-button>
+      <md-divider></md-divider>
     </div>
 
     <div id="grid-list-container" ng-if="view.showTopPosts && view.posts.length > 0">
@@ -54,11 +77,14 @@
         </md-grid-tile>
       </md-grid-list>
     </div>
+
+    <div id="show-more-link" layout="row" ng-if="view.showTopPosts && view.countOriginalPosts() > 0 && view.displayPostLimit <= view.countOriginalPosts()" >
+      <a href="javascript:void(0);" ng-click="view.displayPostLimit = view.displayPostLimit + view.POST_LIMIT_INCR">Show more</a>
+    </div>
+
     <div ng-if="!view.showTopPosts && view.paredPosts.length > 0">
       <analysis pared-posts="view.paredPosts"></analysis>
     </div>
-    <div id="show-more-link" layout="row" ng-if="view.countOriginalPosts() > 0 && view.displayPostLimit <= view.countOriginalPosts()" >
-      <a href="javascript:void(0);" ng-click="view.displayPostLimit = view.displayPostLimit + view.POST_LIMIT_INCR">Show more</a>
-    </div>
+
   </md-content>
 </div>

@@ -15,54 +15,43 @@
       if post.trail?.length > 0 and post.trail[0]?.content.indexOf('.tumblr.com/') isnt -1
         return false
 
-      return true
+      true
 
-    countPostsOfType: (posts, type, originalOnly = false) ->
-      count = 0
-      countPost = (post) ->
-        if originalOnly
-          return post.type is type and post.originalOnly
-        return post.type is type
-
-      for post in posts when countPost post
-        count += 1
-
-      return count
-
-    getNotesOverTimeSeriesData: (posts, originalOnly = true) ->
+    getPostsOverTimeSeriesData: (posts, whatToCount, originalOnly = true) ->
       if originalOnly
         posts = _removeReblogs posts
       seriesData = _.map posts, (post) ->
         x: +post.timestamp * 1000
-        y: post.noteCount
+        y: if whatToCount is 'posts'\
+          then 1\
+          else if whatToCount is 'notes'
+            +post.noteCount
         url: post.url
         type: post.type
-      seriesData = _.filter seriesData, (datum) ->
+
+      _.filter seriesData, (datum) ->
         datum?
 
-    getPostTypeSeriesData: (posts, originalOnly = true) ->
+    getPostsByTypeSeriesData: (posts, whatToCount, originalOnly = true) ->
       if originalOnly
         posts = _removeReblogs posts
-      counts = _.countBy posts, (post) ->
+
+      grouped = _.groupBy posts, (post) ->
         post.type
-      seriesData = []
-      for type, count of counts
-        seriesData.push
-          name: type[0].toUpperCase() + type.slice(1)
-          y: count
-      _.sortBy seriesData, (datum) ->
+
+      counted = []
+      for type, posts of grouped
+        counted.push
+          name: type[0].toUpperCase() + type.slice 1
+          y: if whatToCount is 'posts'\
+            then posts.length\
+            else if whatToCount is 'notes'
+              _.reduce posts, (prev, curr) ->
+                prev + curr.noteCount
+              , 0
+
+      _.sortBy counted, (datum) ->
         datum.name
-
-    countNotesOfType: (posts, type) ->
-      count = 0
-      if type is 'like'
-        for post in posts when post.likeCount?
-          count += post.likeCount
-      else if type is 'reblog'
-        for post in posts when post.reblogCount?
-          count += post.reblogCount
-
-      return count
 
   angular
     .module('tumblrTopApp')

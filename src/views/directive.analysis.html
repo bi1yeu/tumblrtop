@@ -1,40 +1,54 @@
 <div id="analysis">
-  <div layout="row">
-    <span>Reblogged ({{view.rebloggedPostCount}})</span>
-    <md-slider aria-label="ratio original to reblogged"
-      ng-disabled="true"
-      ng-model="view.percentOriginal"
-      min="0"
-      max="100">
-    </md-slider>
-    <span>Original ({{view.originalPostCount}})</span>
+  <div class="slider-container">
+    <div layout="row" class="slider-inner-container">
+      <div class="slider-label">
+        Reblogged
+        <div>({{+view.rebloggedPostCount}})</div>
+      </div>
+      <md-slider aria-label="ratio original to reblogged"
+        ng-disabled="true"
+        ng-model="view.percentOriginal"
+        min="0"
+        max="100">
+      </md-slider>
+      <div class="slider-label">
+        Original
+        <div>({{+view.originalPostCount}})</div>
+      </div>
+    </div>
   </div>
   <md-divider></md-divider>
-  <div>
-    <highchart config="view.notesOverTime"></highchart>
-  </div>
-   <div class="chart-controls" layout="column">
+  <div class="chart-container">
+    <div>
+      <highchart config="view.notesOverTime"></highchart>
+    </div>
+    <div class="chart-controls" layout="column">
       <md-switch ng-model="view.chartControls.notesOverTimeInclReblogs"
         aria-label="Include Reblogged Posts">
         Include Reblogged Posts
       </md-switch>
     </div>
+  </div>
   <md-divider></md-divider>
-  <div>
-    <highchart config="view.postCountsByType"></highchart>
+  <div class="chart-container">
+    <div>
+      <highchart config="view.postCountsByType"></highchart>
+      <div class="chart-controls" layout="column">
+        <md-switch ng-model="view.chartControls.postCountsByTypeInclReblogs"
+          aria-label="Include Reblogged Posts">
+          Include Reblogged Posts
+        </md-switch>
+      </div>
+    </div>
+  </div>
+  <md-divider></md-divider>
+  <div class="chart-container">
+    <highchart config="view.postNotesByType"></highchart>
     <div class="chart-controls" layout="column">
-      <md-switch ng-model="view.chartControls.postCountsByTypeInclReblogs"
+      <md-switch ng-model="view.chartControls.postNotesByTypeInclReblogs"
         aria-label="Include Reblogged Posts">
         Include Reblogged Posts
       </md-switch>
     </div>
   </div>
-  <md-divider></md-divider>
-  Total post count: {{view.paredPosts.length}}<br />
-  Text post count: {{view.countType('text')}} <br />
-  Original text post count: {{view.countType('text', true)}} <br />
-  Photo post count: {{view.countType('photo')}} <br />
-  Original photo post count: {{view.countType('photo', true)}} <br />
-  Original like count: {{view.countNoteType('like')}} <br />
-  Original reblog count: {{view.countNoteType('reblog')}} <br />
 </div>

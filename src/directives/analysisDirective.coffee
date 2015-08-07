@@ -12,6 +12,8 @@
             view = @
             view.paredPosts = $scope.paredPosts
 
+            Highcharts.setOptions lang: thousandsSep: ','
+
             _seriesColors = ['#3F51B5']
 
             _init = ->
@@ -19,6 +21,7 @@
               view.rebloggedPostCount = 0
               view.chartControls =
                 postCountsByTypeInclReblogs: false
+                postNotesByTypeInclReblogs: false
                 notesOverTimeInclReblogs: false
 
             _updateOrigToReblogRatio = (posts) ->
@@ -40,14 +43,6 @@
                     enabled: false
                   tooltip:
                     crosshairs: true
-                    style:
-                      padding: 10
-                    formatter: ->
-                      formattedDate = moment.unix(+@.x/1000).format('YYYY-MM-DD')
-                      formattedType = @.point.type[0].toUpperCase() + @.point.type.slice(1)
-                      "<b>Date</b>: #{formattedDate}<br />
-                      <b>Notes</b>: #{@.y}<br />
-                      <b>Type</b>: #{formattedType}"
                   plotOptions:
                     series:
                       turboThreshold: 100000
@@ -58,7 +53,9 @@
                           select: ->
                             $window.open(@.url)
                 series: [
-                  data: analysisService.getNotesOverTimeSeriesData posts, not view.chartControls.notesOverTimeInclReblogs
+                  data: analysisService.getPostsOverTimeSeriesData posts,
+                    'notes',
+                    not view.chartControls.notesOverTimeInclReblogs
                   color: _seriesColors[0]
                   name: 'Notes'
                   marker:
@@ -85,7 +82,9 @@
                   legend:
                     enabled: false
                 series: [
-                  data: analysisService.getPostTypeSeriesData posts, not view.chartControls.postCountsByTypeInclReblogs
+                  data: analysisService.getPostsByTypeSeriesData posts,
+                    'posts',
+                    not view.chartControls.postCountsByTypeInclReblogs
                   name: 'Count'
                   color: _seriesColors[0]
                 ]
@@ -99,12 +98,39 @@
                   title:
                     text: 'Post Count'
 
+            _updatePostNotesByTypeChart = (posts) ->
+              view.postNotesByType =
+                options:
+                  chart:
+                    type: 'column'
+                  credits:
+                    enabled: false
+                  legend:
+                    enabled: false
+                series: [
+                  data: analysisService.getPostsByTypeSeriesData posts,
+                    'notes',
+                    not view.chartControls.postNotesByTypeInclReblogs
+                  name: 'Notes'
+                  color: _seriesColors[0]
+                ]
+                title:
+                  text: if view.chartControls.postNotesByTypeInclReblogs\
+                    then 'Post Notes by Type'\
+                    else 'Original Post Notes by Type'
+                xAxis:
+                  type: 'category'
+                yAxis:
+                  title:
+                    text: 'Post Notes'
+
             view.updateModels = ->
               posts = _.sortBy view.paredPosts, (post) ->
                 post.timestamp
-              _updateOrigToReblogRatio(posts)
-              _updateNotesOverTimeChart(posts)
-              _updatePostCountsByTypeChart(posts)
+              _updateOrigToReblogRatio posts
+              _updateNotesOverTimeChart posts
+              _updatePostCountsByTypeChart posts
+              _updatePostNotesByTypeChart posts
 
             _init()
 

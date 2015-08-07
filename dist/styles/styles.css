@@ -15,9 +15,30 @@ a {
   margin-top: 30px;
 }
 
+#status {
+  font-size: 0.7em;
+}
+
 #content-container {
   padding: 0 4%;
   height: 90vh;
+}
+
+#tabs {
+  margin-bottom: 50px;
+}
+
+#tabs .md-button[disabled] {
+  cursor: default;
+  color: #3F51B5;
+}
+
+#tabs .md-button {
+  color: #C5C5C5;
+}
+
+#tabs .separator {
+  color: #EDEDED;
 }
 
 .round {
@@ -26,7 +47,7 @@ a {
   overflow: hidden;
   width: 64px;
   height: 64px;
-  margin: 5px 25px 25px 0;
+  margin: 45px 25px 25px 0;
 }
 
 .round:hover {
@@ -40,11 +61,12 @@ a {
 
 #blog-link a {
   text-decoration: none;
-  color: ;
 }
 
-#blog-link a:hover {
-  text-decoration: underline;
+.nsfw {
+  margin: 66px 20px;
+  color: #FF8181;
+  font-size: 0.8em;
 }
 
 md-progress-linear {
@@ -147,8 +169,24 @@ figcaption, .notes {
   height: 10%;
 }
 
+#analysis .slider-container {
+  width: 80%;
+  margin: 30px auto;
+}
+
+#analysis .slider-inner-container {
+  max-width: 62%;
+  margin: auto;
+}
+
 #analysis md-slider {
-    width: 70%;
+    width: 400px;
+}
+
+#analysis .slider-label {
+  text-align: center;
+  line-height: 22px;
+  margin: 0 10px;
 }
 
 #analysis md-divider {
@@ -157,4 +195,9 @@ figcaption, .notes {
 
 #analysis .chart-controls {
   margin: 30px 5%;
+}
+
+#analysis .chart-container {
+  width: 80%;
+  margin: auto;
 }
