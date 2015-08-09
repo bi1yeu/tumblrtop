@@ -21,6 +21,9 @@ module.exports = function(config) {
       'bower_components/angular-animate/angular-animate.min.js',
       'bower_components/angular-aria/angular-aria.min.js',
       'bower_components/angular-material/angular-material.min.js',
+      'bower_components/jquery/dist/jquery.min.js',
+      'bower_components/highcharts/highcharts.js',
+      'bower_components/highcharts-ng/dist/highcharts-ng.min.js',
       'src/views/*.html',
       'dist/js/app.js',
       'spec/*Spec.coffee'
