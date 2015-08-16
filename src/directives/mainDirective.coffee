@@ -80,8 +80,6 @@
                 post.original = analysisService.isOriginalPost post
                 if post.original
                   view.originalPostCount++
-                console.log post
-
                 view.posts.push post
 
             _getPosts = (batchNum = 0) ->
