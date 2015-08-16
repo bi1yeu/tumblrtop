@@ -78,12 +78,12 @@
       </md-grid-list>
     </div>
 
-    <div id="show-more-link" layout="row" ng-if="view.showTopPosts && view.countOriginalPosts() > 0 && view.displayPostLimit <= view.countOriginalPosts()" >
+    <div id="show-more-link" layout="row" ng-if="view.showTopPosts && view.originalPostCount > 0 && view.displayPostLimit <= view.originalPostCount" >
       <a href="javascript:void(0);" ng-click="view.displayPostLimit = view.displayPostLimit + view.POST_LIMIT_INCR">Show more</a>
     </div>
 
-    <div ng-if="!view.showTopPosts && view.paredPosts.length > 0">
-      <analysis pared-posts="view.paredPosts"></analysis>
+    <div ng-if="!view.showTopPosts && view.posts.length > 0">
+      <analysis posts="view.posts"></analysis>
     </div>
 
   </md-content>

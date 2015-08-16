@@ -25,8 +25,8 @@
         y: if whatToCount is 'posts'\
           then 1\
           else if whatToCount is 'notes'
-            +post.noteCount
-        url: post.url
+            +post.note_count
+        url: post.post_url
         type: post.type
 
       _.filter seriesData, (datum) ->
@@ -47,7 +47,7 @@
             then posts.length\
             else if whatToCount is 'notes'
               _.reduce posts, (prev, curr) ->
-                prev + curr.noteCount
+                prev + curr.note_count
               , 0
 
       _.sortBy counted, (datum) ->

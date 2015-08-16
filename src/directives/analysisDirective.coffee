@@ -7,10 +7,9 @@
           template: $templateCache.get('directive.analysis.html')
           controllerAs: 'view'
           scope:
-            paredPosts: '='
+            posts: '='
           controller: ($window, $scope, analysisService) ->
             view = @
-            view.paredPosts = $scope.paredPosts
 
             Highcharts.setOptions lang: thousandsSep: ','
 
@@ -125,7 +124,7 @@
                     text: 'Post Notes'
 
             view.updateModels = ->
-              posts = _.sortBy view.paredPosts, (post) ->
+              posts = _.sortBy $scope.posts, (post) ->
                 post.timestamp
               _updateOrigToReblogRatio posts
               _updateNotesOverTimeChart posts
@@ -136,9 +135,8 @@
 
             return view
           link: (scope, element, attrs, view)->
-            scope.$watch 'view.paredPosts', ->
+            scope.$watchCollection 'posts', ->
               view.updateModels()
-            , true
 
             scope.$watch 'view.chartControls', ->
               view.updateModels()

@@ -18,19 +18,13 @@
 
             _init = ->
               view.posts = []
-              view.paredPosts = []
               view.blog = {}
+              view.originalPostCount = 0
               delete view.avatarUrl
               view.showTopPosts = true
               _stop = false
               view.displayPostLimit = _POST_LIMIT_INIT
               view.loadingPosts = false
-
-            view.countOriginalPosts = ->
-              count = 0
-              for post in view.posts when analysisService.isOriginalPost post
-                count += 1
-              return count
 
             view.analyzeOnEnter = (event) ->
               if event.keyCode is 13
@@ -61,18 +55,6 @@
                 blogName = blogName + '.tumblr.com'
               blogName.replace(/\//g, '').replace(/^http[s]?/g, '').replace(/:/g, '')
 
-            _processNotes = (notes) ->
-              unless notes?
-                return [ 0, 0 ]
-              reblogCount = 0
-              likeCount = 0
-              for note in notes
-                if note.type is 'reblog'
-                  reblogCount += 1
-                else if note.type is 'like'
-                  likeCount += 1
-              return [ reblogCount, likeCount ]
-
             _trustPostHtmlProperties = (post) ->
                 post.body = $sce.trustAsHtml post.body
                 post.caption = $sce.trustAsHtml post.caption
@@ -95,27 +77,12 @@
               for post in posts
                 _trustPostHtmlProperties post
                 post.note_count ?= 0
+                post.original = analysisService.isOriginalPost post
+                if post.original
+                  view.originalPostCount++
+                console.log post
 
                 view.posts.push post
-                original = analysisService.isOriginalPost post
-                if original
-                  [ reblogCount, likeCount ] = _processNotes post.notes
-
-                paredPost =
-                  id: post.id
-                  date: post.date
-                  timestamp: post.timestamp
-                  original: original
-                  url: post.post_url
-                  type: post.type
-                  tags: post.tags
-                  noteCount: post.note_count
-
-                if paredPost.original
-                  paredPost.reblogCount = reblogCount
-                  paredPost.likeCount = likeCount
-
-                view.paredPosts.push paredPost
 
             _getPosts = (batchNum = 0) ->
               tumblrService.getPosts(view.blogName, batchNum)

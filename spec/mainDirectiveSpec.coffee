@@ -124,13 +124,6 @@ describe 'Main Directive', ->
             deferred.resolve undefined
           deferred.promise
 
-  describe 'parsing posts', ->
-    it 'counts the number of original posts', ->
-      $scope.view.posts = _posts
-      expected = 2
-      actual = $scope.view.countOriginalPosts()
-      expect(actual).toBe expected
-
   describe 'getting blog posts', ->
     beforeEach ->
       _set.service.getBlog true
