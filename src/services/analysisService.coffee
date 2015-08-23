@@ -2,8 +2,7 @@
   analysisService = ->
 
     _removeReblogs = (posts) ->
-      _.filter posts, (post) ->
-        post.original
+      _(posts).filter 'original'
 
     isOriginalPost: (post) ->
       if post.reblogged_from_id?
@@ -25,7 +24,7 @@
     getPostsOverTimeSeriesData: (posts, whatToCount, originalOnly = true) ->
       if originalOnly
         posts = _removeReblogs posts
-      seriesData = _.map posts, (post) ->
+      seriesData = _(posts).map (post) ->
         x: +post.timestamp * 1000
         y: if whatToCount is 'posts'\
           then 1\
@@ -34,14 +33,13 @@
         url: post.post_url
         type: post.type
 
-      _.filter seriesData, (datum) ->
-        datum?
+      _(seriesData).filter (datum) -> datum?
 
     getPostsByTypeSeriesData: (posts, whatToCount, originalOnly = true) ->
       if originalOnly
         posts = _removeReblogs posts
 
-      grouped = _.groupBy posts, (post) ->
+      grouped = _(posts).groupBy (post) ->
         post.type
 
       counted = []
@@ -51,12 +49,34 @@
           y: if whatToCount is 'posts'\
             then posts.length\
             else if whatToCount is 'notes'
-              _.reduce posts, (prev, curr) ->
+              _(posts).reduce (prev, curr) ->
                 prev + curr.note_count
               , 0
 
-      _.sortBy counted, (datum) ->
-        datum.name
+      _(counted).sortBy (datum) -> datum.name
+
+    getPostsByTagSeriesData: (posts, whatToCount, originalOnly = true) ->
+      if originalOnly
+        posts = _removeReblogs posts
+
+      allTags = []
+      for post in posts
+        for tag in post.tags
+          allTags.push
+            name: tag.toLowerCase()
+            y: if whatToCount is 'posts'\
+              then 1\
+              else if whatToCount is 'notes'
+                post.note_count
+
+      grouped = _(allTags).groupBy 'name'
+      summed = _(grouped).map (count, key) ->
+        name: key,
+        y: _(count).reduce (prev, curr) ->
+          prev + curr.y
+        , 0
+
+      _(summed).sortBy 'name'
 
   angular
     .module('tumblrTopApp')

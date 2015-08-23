@@ -24,7 +24,7 @@
                 notesOverTimeInclReblogs: false
 
             _updateOrigToReblogRatio = (posts) ->
-              ratio = _.countBy posts, (post) ->
+              ratio = _(posts).countBy (post) ->
                 if post.original then 'original' else 'reblogged'
               view.originalPostCount = ratio.original
               view.rebloggedPostCount = ratio.reblogged
@@ -34,8 +34,6 @@
               seriesData = analysisService.getPostsOverTimeSeriesData posts,
                 'notes',
                 false
-              console.log 'series data'
-              console.log seriesData
               view.notesOverTime =
                 options:
                   chart:
@@ -129,8 +127,7 @@
                     text: 'Post Notes'
 
             view.updateModels = ->
-              posts = _.sortBy $scope.posts, (post) ->
-                post.timestamp
+              posts = _($scope.posts).sortBy 'timestamp'
               _updateOrigToReblogRatio posts
               _updateNotesOverTimeChart posts
               _updatePostCountsByTypeChart posts
