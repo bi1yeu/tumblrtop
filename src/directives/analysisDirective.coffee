@@ -13,7 +13,7 @@
 
             Highcharts.setOptions lang: thousandsSep: ','
 
-            _seriesColors = ['#3F51B5']
+            _seriesColors = ['#4DB6AC']
 
             _boilerplateChart =
               options:
@@ -56,8 +56,14 @@
               chart.options.chart = zoomType: 'x'
               chart.options.tooltip = crosshairs: true
               chart.options.plotOptions =
+                line:
+                  lineWidth: 1
                 series:
                   turboThreshold: 30000
+                  states:
+                    hover:
+                      enabled: true
+                      lineWidth: 2
                   cursor: 'pointer'
                   allowPointSelect: true
                   point:

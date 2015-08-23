@@ -7,7 +7,7 @@ md-toolbar {
 }
 
 a {
-  color: #3F51B5;
+  color: #004D40;
 }
 
 #controls {
@@ -30,7 +30,7 @@ a {
 
 #tabs .md-button[disabled] {
   cursor: default;
-  color: #3F51B5;
+  color: #004D40;
 }
 
 #tabs .md-button {
