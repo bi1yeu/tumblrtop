@@ -1,2 +1,0 @@
-#!/bin/sh
-sed -i '' "s/API_KEY = '.*'/API_KEY = '<consumer-key>'/g" */**/tumblrService.coffee
