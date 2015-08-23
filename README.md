@@ -7,6 +7,8 @@ Gives users a quick visualization of the following metrics:
 - most popular post types (photo, text, etc), by post count and note count
 - most popular tags, by post count and note count
 
+[Here it is][1]
+
 ##Building
 
 ```
@@ -23,4 +25,5 @@ Jasmine unit tests can be run with `gulp test`.
 Get your own [Tumblr OAuth credentials][1].
 
 [0]: https://www.tumblr.com/  "https://www.tumblr.com/"
-[1]: https://www.tumblr.com/oauth/apps "https://www.tumblr.com/oauth/apps"
+[1]: http://matthewbilyeu.com/tumblr-top "http://matthewbilyeu.com/tumblr-top/"
+[2]: https://www.tumblr.com/oauth/apps "https://www.tumblr.com/oauth/apps"
