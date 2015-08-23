@@ -12,7 +12,12 @@
       # Some posts with deleted source blogs don't have a
       # reblogged_from_id; this is an attempt to still
       # differentiate those reblogs
-      if post.trail?.length > 0 and post.trail[0]?.content.indexOf('.tumblr.com/') isnt -1
+      if post.trail? and post.trail.length > 0 and post.trail[0]? and
+          post.trail[0].content.indexOf('.tumblr.com/') isnt -1
+        return false
+
+      # Others have a reblog tree with links
+      if post.reblog? and post.reblog.tree_html.indexOf('.tumblr.com/') isnt -1
         return false
 
       true

@@ -31,6 +31,11 @@
               view.percentOriginal = (view.originalPostCount / posts.length) * 100
 
             _updateNotesOverTimeChart = (posts) ->
+              seriesData = analysisService.getPostsOverTimeSeriesData posts,
+                'notes',
+                false
+              console.log 'series data'
+              console.log seriesData
               view.notesOverTime =
                 options:
                   chart:

@@ -18,6 +18,7 @@ module.exports = function(config) {
       'dist/js/angular/angular.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/moment/min/moment.min.js',
+      'bower_components/underscore/underscore-min.js',
       'bower_components/angular-animate/angular-animate.min.js',
       'bower_components/angular-aria/angular-aria.min.js',
       'bower_components/angular-material/angular-material.min.js',
