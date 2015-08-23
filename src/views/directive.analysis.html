@@ -51,4 +51,24 @@
       </md-switch>
     </div>
   </div>
+  <md-divider></md-divider>
+  <div class="chart-container">
+    <highchart config="view.postCountsByTag"></highchart>
+    <div class="chart-controls" layout="column">
+      <md-switch ng-model="view.chartControls.postCountsByTagInclReblogs"
+        aria-label="Include Reblogged Posts">
+        Include Reblogged Posts
+      </md-switch>
+    </div>
+  </div>
+  <md-divider></md-divider>
+  <div class="chart-container">
+    <highchart config="view.postNotesByTag"></highchart>
+    <div class="chart-controls" layout="column">
+      <md-switch ng-change="alert('hi');" ng-model="view.chartControls.postNotesByTagInclReblogs"
+        aria-label="Include Reblogged Posts">
+        Include Reblogged Posts
+      </md-switch>
+    </div>
+  </div>
 </div>

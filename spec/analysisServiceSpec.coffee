@@ -123,10 +123,10 @@ describe 'Analysis Service', ->
   _postsByTagSeriesData =
     notes:
       both: [
-        name: 'tag a'
+        name: 'tag b'
         y: 4552
       ,
-        name: 'tag b'
+        name: 'tag a'
         y: 4552
       ,
         name: 'tag c'
@@ -135,57 +135,56 @@ describe 'Analysis Service', ->
         name: 'tag d'
         y: 3086
       ,
-        name: 'tag e'
-        y: 638
-      ,
         name: 'tag f'
         y: 1156
+      ,
+        name: 'tag e'
+        y: 638
       ]
       originalOnly: [
-        name: 'tag a'
-        y: 474
+        name: 'tag e'
+        y: 638
       ,
         name: 'tag b'
         y: 474
       ,
-        name: 'tag e'
-        y: 638
+        name: 'tag a'
+        y: 474
       ,
         name: 'tag f'
         y: 164
       ]
     posts:
       both: [
+        name: 'tag b'
+        y: 3
+      ,
         name: 'tag a'
         y: 3
       ,
-        name: 'tag b'
-        y: 3
+        name: 'tag f'
+        y: 2
+      ,
+        name: 'tag e'
+        y: 2
       ,
         name: 'tag c'
         y: 2
       ,
         name: 'tag d'
         y: 1
-      ,
+      ]
+      originalOnly: [
         name: 'tag e'
         y: 2
       ,
         name: 'tag f'
-        y: 2
-
-      ]
-      originalOnly: [
-        name: 'tag a'
         y: 1
       ,
         name: 'tag b'
         y: 1
       ,
-        name: 'tag e'
-        y: 2
-      ,
-        name: 'tag f'
+        name: 'tag a'
         y: 1
       ]
 

@@ -41,9 +41,7 @@
       url = API_BASE_URL + "blog/#{blogName}/posts/"
       data =
         params: angular.extend {}, defaultParams,
-          notes_info: true
           reblog_info: true
-          notes_info: true
           offset: batchNum * BATCH_SIZE
           limit: BATCH_SIZE
       $http.jsonp url, data

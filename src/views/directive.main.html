@@ -72,7 +72,7 @@
 
     <div id="grid-list-container" ng-if="view.showTopPosts && view.posts.length > 0">
       <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="20px" md-gutter-gt-sm="20px">
-        <md-grid-tile ng-if="post.original" ng-repeat="post in view.posts | orderBy:'-note_count' | limitTo:view.displayPostLimit" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
+        <md-grid-tile ng-repeat="post in view.posts | filter: {original: true} | orderBy:'-note_count' | limitTo:view.displayPostLimit" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
           <post post="post"></post>
         </md-grid-tile>
       </md-grid-list>

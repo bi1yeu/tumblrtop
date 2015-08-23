@@ -59,6 +59,6 @@ describe 'Tumblr Service', ->
     it 'gets posts', ->
       tumblrService.getPosts('testblog.tumblr.com', 5)
       # assuming batch size is 20 posts
-      $httpBackend.expectJSONP(/http:\/\/api.tumblr.com\/v2\/blog\/testblog.tumblr.com\/posts\/.*limit=20&notes_info=true&offset=100&reblog_info=true/)
+      $httpBackend.expectJSONP(/http:\/\/api.tumblr.com\/v2\/blog\/testblog.tumblr.com\/posts\/.*limit=20&offset=100&reblog_info=true/)
         .respond(200, _postsResponse)
       $httpBackend.flush()

@@ -76,7 +76,7 @@
           prev + curr.y
         , 0
 
-      _(summed).sortBy 'name'
+      _(summed).sortBy('y').reverse()[0..20]
 
   angular
     .module('tumblrTopApp')
