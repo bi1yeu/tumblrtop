@@ -122,7 +122,7 @@
                 analysisService.getPostsByTagSeriesData posts,
                   'posts',
                   not view.chartControls.postCountsByTagInclReblogs
-              chart.series[0].name = 'Notes'
+              chart.series[0].name = 'Count'
               chart.title.text =
                 if view.chartControls.postCountsByTypeInclReblogs
                   'Post Count by Tag'
