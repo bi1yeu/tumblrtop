@@ -124,7 +124,7 @@
                   not view.chartControls.postCountsByTagInclReblogs
               chart.series[0].name = 'Count'
               chart.title.text =
-                if view.chartControls.postCountsByTypeInclReblogs
+                if view.chartControls.postCountsByTagInclReblogs
                   'Post Count by Tag'
                 else
                   'Original Post Count by Tag'
@@ -140,7 +140,7 @@
                   not view.chartControls.postNotesByTagInclReblogs
               chart.series[0].name = 'Notes'
               chart.title.text =
-                if view.chartControls.postNotesByTypeInclReblogs
+                if view.chartControls.postNotesByTagInclReblogs
                   'Post Notes by Tag'
                 else
                   'Original Post Notes by Tag'
