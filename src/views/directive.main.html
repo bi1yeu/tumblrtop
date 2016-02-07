@@ -9,7 +9,7 @@
       <div layout="row">
         <div id="blog-name-input" layout="column">
           <md-input-container md-no-float flex>
-            <input type="text" ng-disabled="view.loadingPosts" placeholder="Enter a blog name to view its top content" ng-keypress="view.analyzeOnEnter($event)" ng-model="view.blogName">
+            <input type="text" ng-disabled="view.loadingPosts" placeholder="Enter a blog name to view its top content!" ng-keypress="view.analyzeOnEnter($event)" ng-model="view.blogName">
           </md-input-container>
         </div>
         <div layout="column">
@@ -25,6 +25,9 @@
             </md-button>
           </div>
         </div>
+      </div>
+      <div layout="row" ng-if="view.blogName == undefined">
+        Or try this blog: &nbsp;<a href="#" ng-click="view.showExample()">{{view.example}}</a>
       </div>
 
       <div layout="row" ng-if="view.loadingPosts">

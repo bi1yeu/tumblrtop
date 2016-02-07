@@ -1,12 +1,14 @@
 describe 'Tumblr Service', ->
   $httpBackend = null
+  $timeout = null
   tumblrService = null
 
   beforeEach ->
     module 'tumblrTopApp'
 
-  beforeEach inject (_$httpBackend_, _tumblrService_) ->
+  beforeEach inject (_$httpBackend_, _$timeout_, _tumblrService_) ->
     $httpBackend = _$httpBackend_
+    $timeout = _$timeout_
     tumblrService = _tumblrService_
 
   _blogResponse =
@@ -51,10 +53,13 @@ describe 'Tumblr Service', ->
       $httpBackend.flush()
 
     it 'gets avatar url', ->
+      actual = null
       tumblrService.getAvatarUrl('testblog.tumblr.com')
-      $httpBackend.expectJSONP(/http:\/\/api.tumblr.com\/v2\/blog\/testblog.tumblr.com\/avatar\/64.*/)
-        .respond(200, _avatarResponse)
-      $httpBackend.flush()
+      .then (result) ->
+        actual = result
+      $timeout.flush()
+      expected = "http://api.tumblr.com/v2/blog/testblog.tumblr.com/avatar/64"
+      expect(actual).toBe(expected)
 
     it 'gets posts', ->
       tumblrService.getPosts('testblog.tumblr.com', 5)

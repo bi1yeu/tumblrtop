@@ -27,14 +27,8 @@
     getAvatarUrl: (blogName) ->
       deferred = $q.defer()
       url = API_BASE_URL + "blog/#{blogName}/avatar/64"
-      data =
-        params: defaultParams
-      $http.jsonp url, data
-      .then (response) ->
-        deferred.resolve response.data.response.avatar_url
-      , (error) ->
-        deferred.reject error
-      deferred.promise
+      deferred.resolve url
+      return deferred.promise
 
     getPosts: (blogName, batchNum) ->
       deferred = $q.defer()

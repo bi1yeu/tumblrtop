@@ -16,15 +16,30 @@
 
             view.analysisService = analysisService
 
+            _exampleBlogs = [
+              'npr'
+              'twitterthecomic'
+              'craigslistmirrors'
+              'worstroom.com'
+              'gifopera'
+              'blackandwhite-xtra'
+              '1041uuu'
+            ]
+
             _init = ->
               view.posts = []
               view.blog = {}
               view.originalPostCount = 0
               delete view.avatarUrl
               view.showTopPosts = true
+              view.example = _exampleBlogs[Math.floor(Math.random() * _exampleBlogs.length)]
               _stop = false
               view.displayPostLimit = _POST_LIMIT_INIT
               view.loadingPosts = false
+
+            view.showExample = ->
+              view.blogName = view.example
+              view.startAnalysis()
 
             view.analyzeOnEnter = (event) ->
               if event.keyCode is 13
