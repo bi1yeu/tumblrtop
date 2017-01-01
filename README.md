@@ -7,7 +7,7 @@ Gives users a quick visualization of the following metrics:
 - most popular post types (photo, text, etc), by post count and note count
 - most popular tags, by post count and note count
 
-[Here it is][1]
+[Here it is][1] (possibly NSFW, depending on what blog you enter)
 
 ##Building
 
