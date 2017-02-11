@@ -11,7 +11,7 @@
             view.POST_LIMIT_INCR = 18
             _POST_LIMIT_INIT = 18
             _BLOG_NOT_FOUND_MSG = "Couldn't find that blog, sorry!"
-            _POST_RETRIEVAL_ERR_MSG = "Couldn't get posts :("
+            _POST_RETRIEVAL_ERR_MSG = "Couldn't get posts; trying next batch"
             _stop = false
 
             view.analysisService = analysisService
@@ -22,7 +22,6 @@
               'craigslistmirrors'
               'worstroom.com'
               'gifopera'
-              'blackandwhite-xtra'
               '1041uuu'
             ]
 
@@ -115,6 +114,8 @@
                   view.loadingPosts = false
               , ->
                 _showErrorMessage _POST_RETRIEVAL_ERR_MSG
+                _getPosts batchNum += 1
+
 
             _getAvatar = ->
               tumblrService.getAvatarUrl(view.blogName)
