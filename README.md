@@ -1,4 +1,4 @@
-#Tumblr Top
+# Tumblr Top
 
 SPA to display the top original posts for a given [Tumblr][0] tumblelog.
 Gives users a quick visualization of the following metrics:
@@ -9,7 +9,7 @@ Gives users a quick visualization of the following metrics:
 
 [Here it is][1] (possibly NSFW, depending on what blog you enter)
 
-##Building
+## Building
 
 ```
 $ export TUMBLR_CONSUMER_KEY=mYtuMb1r0aUthC0nSuMerKey
