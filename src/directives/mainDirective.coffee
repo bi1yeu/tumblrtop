@@ -17,12 +17,17 @@
             view.analysisService = analysisService
 
             _exampleBlogs = [
-              'npr'
-              'twitterthecomic'
-              'craigslistmirrors'
-              'worstroom.com'
-              'gifopera'
               '1041uuu'
+              'craigslistmirrors'
+              'gifopera'
+              'npr'
+              'oxane'
+              'sensitive'
+              'spatula'
+              'thegetty'
+              'timelightbox'
+              'twitterthecomic'
+              'worstroom.com'
             ]
 
             _init = ->
@@ -47,6 +52,7 @@
             view.startAnalysis = ->
               _init()
               view.loadingPosts = true
+              location.hash = '/' + view.blogName
               view.blogName = _cleanBlogName view.blogName
               tumblrService.getBlog(view.blogName)
               .then (blog) ->
@@ -130,7 +136,13 @@
                   .hideDelay(3000)
               )
 
-            _init()
+            blogNameInUrl = location.hash.replace(/^#\//,'')
+            if blogNameInUrl isnt ''
+              view.blogName = blogNameInUrl
+              view.startAnalysis()
+            else
+              _init()
+
             return view
 
       return directive

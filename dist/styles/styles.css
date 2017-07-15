@@ -10,6 +10,14 @@ a {
   color: #004D40;
 }
 
+button.link {
+  color: #004D40;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
 #controls {
   width: 100%;
   margin-top: 30px;

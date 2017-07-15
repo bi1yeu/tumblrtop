@@ -27,7 +27,7 @@
         </div>
       </div>
       <div layout="row" ng-if="view.blogName == undefined">
-        Or try this blog: &nbsp;<a href="#" ng-click="view.showExample()">{{view.example}}</a>
+        Or try this blog: &nbsp;<button class="link" ng-click="view.showExample()">{{view.example}}</button>
       </div>
 
       <div layout="row" ng-if="view.loadingPosts">
